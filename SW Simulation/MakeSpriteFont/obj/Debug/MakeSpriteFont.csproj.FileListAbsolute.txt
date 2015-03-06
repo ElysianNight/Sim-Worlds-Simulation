@@ -1,0 +1,5 @@
+C:\GEA Simulation\GEA Simulation\MakeSpriteFont\bin\Debug\MakeSpriteFont.exe
+C:\GEA Simulation\GEA Simulation\MakeSpriteFont\bin\Debug\MakeSpriteFont.pdb
+C:\GEA Simulation\GEA Simulation\MakeSpriteFont\obj\Debug\MakeSpriteFont.csprojResolveAssemblyReference.cache
+C:\GEA Simulation\GEA Simulation\MakeSpriteFont\obj\Debug\MakeSpriteFont.exe
+C:\GEA Simulation\GEA Simulation\MakeSpriteFont\obj\Debug\MakeSpriteFont.pdb
