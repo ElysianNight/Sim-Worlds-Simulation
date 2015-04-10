@@ -3,6 +3,7 @@
 //Base Game Object Class
 #include "SimpleMath.h"
 #include "CommonStates.h"
+#include "ObjectType.h"
 
 using namespace DirectX;
 using namespace SimpleMath;
@@ -17,6 +18,8 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
+	ObjectType m_type;
+
 	virtual void Tick(GameData* _GD );
 	virtual void Draw(DrawData* _DD) = 0;
 
@@ -30,10 +33,16 @@ public:
 	void SetPitch(float _pitch){ m_pitch = _pitch; }
 	void SetYaw(float _yaw){ m_yaw = _yaw; }
 	void SetRoll(float _roll){ m_roll = _roll; }
-	void SetPitchYawRoll(float _pitch, float _yaw, float _roll){ m_pitch = _pitch; m_yaw = _yaw; m_roll = _roll; }
+	void SetPitchYawRoll(float _pitch, float _yaw, float _roll)
+	{ 
+		m_pitch = _pitch; m_yaw = _yaw; m_roll = _roll; 
+	}
 
 	void SetScale(Vector3 _scale){ m_scale = _scale; }
 	void SetScale(float _scale){ m_scale = _scale * Vector3::One; }
+	
+	
+	void SetForces(GameObject* _GO);
 
 protected:
 	Vector3 m_pos;
@@ -45,6 +54,8 @@ protected:
 	Matrix m_worldMat;
 	Matrix m_rotMat;
 	Matrix m_fudge;
+
+	float m_drag;
 
 };
 

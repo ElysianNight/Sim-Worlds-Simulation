@@ -2,6 +2,7 @@
 
 void VBCube::init(int _size, ID3D11Device* GD)
 {
+	m_type = OT_BOID;
 	m_size = _size;
 
 	//calculate number of vertices and primatives
@@ -24,33 +25,33 @@ void VBCube::init(int _size, ID3D11Device* GD)
 		for (int j = -(m_size - 1) / 2; j<(m_size - 1) / 2; j++)
 		{
 			//top
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, 0.5f * (float)(m_size - 1), (float)j);
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, 0.5f * (float)(m_size - 1), (float)(j + 1));
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), 0.5f * (float)(m_size - 1), (float)j);
 
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), 0.5f * (float)(m_size - 1), (float)j);
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, 0.5f * (float)(m_size - 1), (float)(j + 1));
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), 0.5f * (float)(m_size - 1), (float)(j + 1));
 
 			//back
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, (float)j, 0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), (float)j, 0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, (float)(j + 1), 0.5f * (float)(m_size - 1));
 
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), (float)j, 0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(i + 1), (float)(j + 1), 0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)i, (float)(j + 1), 0.5f * (float)(m_size - 1));
 
 			//right
@@ -68,51 +69,50 @@ void VBCube::init(int _size, ID3D11Device* GD)
 			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(0.5f * (float)(m_size - 1), (float)i, (float)(j + 1));
 
-			//Bottom
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			//bottom
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, -0.5f * (float)(m_size - 1), (float)i);
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), -0.5f * (float)(m_size - 1), (float)i);
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, -0.5f * (float)(m_size - 1), (float)(i + 1));
 
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, -0.5f * (float)(m_size - 1), (float)(i + 1));
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), -0.5f * (float)(m_size - 1), (float)i);
-			m_vertices[vert].Color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), -0.5f * (float)(m_size - 1), (float)(i + 1));
 
 			//front
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, (float)i, -0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, (float)(i + 1), -0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), (float)i, -0.5f * (float)(m_size - 1));
 
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)j, (float)(i + 1), -0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), (float)(i + 1), -0.5f * (float)(m_size - 1));
-			m_vertices[vert].Color = Color(0.0f, 1.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3((float)(j + 1), (float)i, -0.5f * (float)(m_size - 1));
 
 			//left
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)j, (float)i);
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)j, (float)(i + 1));
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)(j + 1), (float)i);
 
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)j, (float)(i + 1));
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)(j + 1), (float)(i + 1));
-			m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
+			m_vertices[vert].Color = Color(0.0f, 0.0f, 1.0f, 1.0f);
 			m_vertices[vert++].Pos = Vector3(-0.5f * (float)(m_size - 1), (float)(j + 1), (float)i);
-
 		}
 	}
 
@@ -147,7 +147,17 @@ void VBCube::init(int _size, ID3D11Device* GD)
 
 void VBCube::Tick(GameData* _GD)
 {
-	m_acc += Vector3();
-	
+	//prey movement code
+	float size = 1000.0f;
+	float Xpush = size *((float)rand() / (float)RAND_MAX - 0.5f);
+	float Zpush = size *((float)rand() / (float)RAND_MAX - 0.5f);
+	m_acc += Vector3(Xpush, 0.0f, Zpush);
+	m_acc -= m_vel * 1.5f; //simply drag
+
+	if (m_pos.Length() > 400.0f)
+	{
+		m_acc -= 25.0f * m_pos;
+	}	
+
 	GameObject::Tick(_GD);
 }

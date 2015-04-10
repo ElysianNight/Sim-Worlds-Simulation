@@ -10,6 +10,8 @@ Camera::Camera(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance,
 
 	m_target = _target;
 	m_up = _up;
+
+	m_type = OT_CAM;
 }
 
 Camera::~Camera()

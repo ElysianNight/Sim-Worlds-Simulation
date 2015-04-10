@@ -1,5 +1,5 @@
-﻿Build started 30/01/2015 14:23:46.
-     1>Project "C:\GEA Simulation\GEA Simulation\Audio\DirectXTKAudio_Desktop_2013_DXSDK.vcxproj" on node 3 (Build target(s)).
+﻿Build started 10/04/2015 17:10:59.
+     1>Project "C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Audio\DirectXTKAudio_Desktop_2013_DXSDK.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\Inc /I..\Src /ZI /nologo /W4 /WX- /Od /Oy- /D _WIN32_WINNT=0x0600 /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Yc"pch.h" /Fp"Bin\Desktop_2013_DXSDK\Win32\Debug\DirectXTKAudioDX.pch" /Fo"Bin\Desktop_2013_DXSDK\Win32\Debug\\" /Fd"Bin\Desktop_2013_DXSDK\Win32\Debug\DirectXTKAudioDX.pdb" /Gd /TP /analyze- /errorReport:prompt AudioEngine.cpp
          AudioEngine.cpp
@@ -21,9 +21,9 @@
          Bin\Desktop_2013_DXSDK\Win32\Debug\WaveBank.obj
          Bin\Desktop_2013_DXSDK\Win32\Debug\WaveBankReader.obj
          Bin\Desktop_2013_DXSDK\Win32\Debug\WAVFileReader.obj
-         DirectXTKAudio_Desktop_2013_DXSDK.vcxproj -> C:\GEA Simulation\GEA Simulation\Audio\Bin\Desktop_2013_DXSDK\Win32\Debug\DirectXTKAudioDX.lib
-     1>Done Building Project "C:\GEA Simulation\GEA Simulation\Audio\DirectXTKAudio_Desktop_2013_DXSDK.vcxproj" (Build target(s)).
+         DirectXTKAudio_Desktop_2013_DXSDK.vcxproj -> C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Audio\Bin\Desktop_2013_DXSDK\Win32\Debug\DirectXTKAudioDX.lib
+     1>Done Building Project "C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Audio\DirectXTKAudio_Desktop_2013_DXSDK.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:14.15
+Time Elapsed 00:00:07.48

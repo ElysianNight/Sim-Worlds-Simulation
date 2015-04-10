@@ -1,5 +1,6 @@
 #include "gameobject.h"
 #include "gamedata.h"
+#include "ObjectType.h"
 
 using namespace std;
 
@@ -16,6 +17,9 @@ GameObject::GameObject()
 
 	m_worldMat = Matrix::Identity;
 	m_fudge = Matrix::Identity;
+	m_drag = 5.0f;
+
+	m_type = OT_NULL;
 }
 
 GameObject::~GameObject()
@@ -23,10 +27,32 @@ GameObject::~GameObject()
 
 }
 
+void GameObject::SetForces(GameObject* _GO)
+{
+	//dpos vector from me to the other guy
+	Vector3 dPos = _GO->m_pos - m_pos;
+
+	//normalise that vector
+	dPos.Normalize();
+
+	float Length = dPos.Length();
+
+	if (Length < 10.0f)
+	{
+		//apply acc along that vector scaled by how much I want to be pulled over to that guy
+		m_acc -= 0.75f * dPos;
+	}
+	else if (Length > 10.0f && Length < 50.0f)
+	{
+		//apply acc along that vector scaled by how much I want to be pulled over to that guy
+		m_acc += 0.75f * dPos;
+	}
+}
+
 void GameObject::Tick(GameData* _GD)
 {
 	Vector3 newPos = m_pos + _GD->dt * m_vel;
-	Vector3 newVel = m_vel + _GD->dt * m_acc;
+	Vector3 newVel = m_vel + _GD->dt * (m_acc  - m_drag * m_vel);
 	
 	m_pos = newPos;
 	m_vel = newVel;

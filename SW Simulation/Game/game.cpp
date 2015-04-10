@@ -51,11 +51,11 @@ Game::Game(ID3D11Device* _pd3dDevice, HINSTANCE _hInstance) :m_playTime(0), m_my
 	m_GD->keyboard = m_keyboardState;
 	m_GD->prevKeyboard = m_prevKeyboardState;
 	m_GD->mouse = &m_mouse_state;
-	m_GD->GS = GS_PLAY_TPS_CAM;
+	m_GD->GS = GS_PLAY_MAIN_CAM;
 
 	//create a base camera
 	m_cam = new Camera(0.25f * XM_PI, 640.0f / 480.0f, 1.0f, 10000.0f, Vector3::Zero, Vector3::UnitY);
-	m_cam->SetPos( Vector3(0.0f, 300.0f,300.0f) );
+	m_cam->SetPos( Vector3(0.0f, 750.0f, 750.0f) );
 	m_GameObjects.push_back(m_cam);
 
 /*	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_myEF,Vector3(100.0f,0.0f,100.0f), 0.0f, 0.0f, 0.0f, 0.25f * Vector3::One);
@@ -81,16 +81,15 @@ Game::Game(ID3D11Device* _pd3dDevice, HINSTANCE _hInstance) :m_playTime(0), m_my
 	Box->SetScale( 20.0f ); */
 
 
-	for (int i = 0; i < 49; i++)
+	for (int i = 0; i < 199; i++)
 	{
 		VBCube* cube = new VBCube();
 		cube->init(11, _pd3dDevice);
-		cube->SetPos(Vector3(rand() % 500 -250, 0.0f, rand() % 500-250));
+		cube->SetPos(Vector3(rand() % 500 - 250, 0.0f, rand() % 500 - 250));
 		cube->SetYaw(2.0f*3.141f*(float)rand() / (float)RAND_MAX);
 		cube->SetScale(2.0f);
 		m_GameObjects.push_back(cube);
 	}
-		
 /*	SpikedVB* spikes = new SpikedVB();
 	spikes->init(11, _pd3dDevice);
 	spikes->SetPos(Vector3(0.0f, 0.0f, 100.0f));
@@ -192,6 +191,7 @@ bool Game::update()
 		return false;
 	}
 
+	
 	if ((m_keyboardState[DIK_SPACE] & 0x80) && !(m_prevKeyboardState[DIK_SPACE] & 0x80))
 	{
 		if (m_GD->GS == GS_PLAY_MAIN_CAM)
@@ -214,7 +214,19 @@ bool Game::update()
 	//update all objects
 	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		(*it)->Tick(m_GD);
+		for (list<GameObject *>::iterator it2 = it; it2 != m_GameObjects.end(); it2++)
+		{
+			if (it != it2  && (*it)->m_type == OT_BOID && (*it2)->m_type==OT_BOID)
+			{
+				//update forces on it and it2
+				(*it)->SetForces((*it2));
+				(*it2)->SetForces((*it));
+			}
+		}
+	}
+	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		(*it)->Tick(m_GD);//apply forces
 	}
 	for (list<GameObject2D *>::iterator it = m_GameObject2Ds.begin(); it != m_GameObject2Ds.end(); it++)
 	{
@@ -229,7 +241,11 @@ void Game::render(ID3D11DeviceContext* _pd3dImmediateContext)
 	m_DD->pd3dImmediateContext = _pd3dImmediateContext;
 
 	m_DD->cam = m_cam;
-	if (m_GD->GS == GS_PLAY_TPS_CAM)
+	if (m_GD->GS == GS_PLAY_MAIN_CAM)
+	{
+		m_DD->cam = m_cam;
+	}
+	else if (m_GD->GS == GS_PLAY_TPS_CAM)
 	{
 		m_DD->cam = m_TPSCam;
 	}
@@ -243,17 +259,55 @@ void Game::render(ID3D11DeviceContext* _pd3dImmediateContext)
 	}
 
 	
+	/*
+	This was the original code for printing the test message:...
+	
 	char number[10];
 	itoa(10, number, 10); 
 	string attempt = "Test Message " + string(number);
 
+	...But I created my own string vectors to do this below
+	*/
+
+	//Setting up a vector (admittedly with only one entry) containing the application's title
+	vector<string>title;
+	title.push_back("Alex's Boid Simulation");
+
+	//Setting up a vector (again, it only contains one entry) to hold the player's score
+	
+	/*
+	...do something with the score here...
+	...needs to add 100 points to the score every time a boid is eaten...
+	...the boid GOs also need to be destroyed on player impact...
+	*/
+	
+	//Setting up a vector containing the HUD elements
+	vector<string>attempts;
+	attempts.push_back("Press I to decrease boid speed or O to increase boid speed");
+	attempts.push_back("Press J to decrease player speed or K to increase player speed");
+	attempts.push_back("Press N to add 10 boids or M to remove 10 boids");
+	
 	// Draw sprite batch stuff
 	m_DD2D->m_Sprites->Begin();
+
 	for (list<GameObject2D *>::iterator it = m_GameObject2Ds.begin(); it != m_GameObject2Ds.end(); it++)
 	{
 		(*it)->draw(m_DD2D);
 	}
-	m_DD2D->m_Font->DrawString(m_DD2D->m_Sprites.get(), Helper::charToWChar(attempt.c_str()), Vector2(100, 10), Colors::Yellow);
+
+	//Print the application's title to the screen
+	for (int i = 0; i < title.size(); i++)
+	{
+		m_DD2D->m_Font->DrawString(m_DD2D->m_Sprites.get(), Helper::charToWChar(title[i].c_str()), Vector2(600, 10), Colors::Black, 0.0f, Vector2::One, Vector3(1.0f, 1.0f, 1.0f));
+	}
+
+	//Print the HUD to the screen
+	for (int i = 0; i < attempts.size(); i++)
+	{
+		m_DD2D->m_Font->DrawString(m_DD2D->m_Sprites.get(), Helper::charToWChar(attempts[i].c_str()), Vector2(50, 90 + (i * 30)), Colors::White, 0.0f, Vector2::One, Vector3(0.6f, 0.6f, 0.6f));
+	}
+
+	//End sprite batch drawing
 	m_DD2D->m_Sprites->End();
 
 	_pd3dImmediateContext->OMSetDepthStencilState(m_States->DepthDefault(), 0);

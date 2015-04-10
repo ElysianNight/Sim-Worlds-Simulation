@@ -103,6 +103,9 @@
     <ClInclude Include="snail.h">
       <Filter>Engine\GameObject Headers</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectType.h">
+      <Filter>Engine\GameObject Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tutorial01.rc">

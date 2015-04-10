@@ -384,6 +384,7 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="MyEffectsFactory.h" />
     <ClInclude Include="ObjectList.h" />
+    <ClInclude Include="ObjectType.h" />
     <ClInclude Include="pillow.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="snail.h" />
