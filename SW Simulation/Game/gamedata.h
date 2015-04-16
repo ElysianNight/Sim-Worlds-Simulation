@@ -10,6 +10,7 @@ struct GameData
 	unsigned char* prevKeyboard; //previous frame's keyboard state
 	DIMOUSESTATE* mouse; //current mouse state
 	GameState GS; //current game state
+	Vector3 avePos;
 };
 
 #endif

@@ -1,14 +1,15 @@
-﻿Build started 10/04/2015 17:24:01.
+﻿Build started 13/04/2015 14:30:36.
      1>Project "C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Assets\Assets.vcxproj" on node 2 (Build target(s)).
      1>_ImageContentTask:
          grass.jpg
          white.jpg
          logo.png
        _MeshContentTask:
+         PredatorModel.fbx
          table.FBX
          treasure_chest.FBX
      1>Done Building Project "C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Assets\Assets.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.22
+Time Elapsed 00:00:01.36

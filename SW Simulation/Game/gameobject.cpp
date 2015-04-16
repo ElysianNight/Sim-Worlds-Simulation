@@ -4,6 +4,9 @@
 
 using namespace std;
 
+float GameObject::ms_speed = 0.75f;
+float GameObject::mp_speed = 100.0f;
+
 GameObject::GameObject()
 {
 	//set the Gameobject to the origin with no rotation and unit scaling 
@@ -27,6 +30,13 @@ GameObject::~GameObject()
 
 }
 
+/*
+Something in the SetForces function isn't working properly so the prey are just moving into a circle in the middle.
+I've spent quite a long time trying to work out what is going wong and I'm not really sure which line of code is doing it.
+It might just be that my maths and spatial planning aren't very good and I'm just missing something obvious...
+*/
+
+//Initialises and sets the forces acting on the prey
 void GameObject::SetForces(GameObject* _GO)
 {
 	//dpos vector from me to the other guy
@@ -40,12 +50,12 @@ void GameObject::SetForces(GameObject* _GO)
 	if (Length < 10.0f)
 	{
 		//apply acc along that vector scaled by how much I want to be pulled over to that guy
-		m_acc -= 0.75f * dPos;
+		m_acc -= ms_speed * dPos;
 	}
 	else if (Length > 10.0f && Length < 50.0f)
 	{
 		//apply acc along that vector scaled by how much I want to be pulled over to that guy
-		m_acc += 0.75f * dPos;
+		m_acc += ms_speed * dPos;
 	}
 }
 

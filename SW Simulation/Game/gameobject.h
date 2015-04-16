@@ -18,7 +18,11 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
+	//Object type variable
 	ObjectType m_type;
+
+	//Initialising alive/dead state
+	bool m_alive = 1;
 
 	virtual void Tick(GameData* _GD );
 	virtual void Draw(DrawData* _DD) = 0;
@@ -43,11 +47,16 @@ public:
 	
 	
 	void SetForces(GameObject* _GO);
+	//Boid speed
+	static float ms_speed;
+	//Predator speed
+	static float mp_speed;
 
 protected:
-	Vector3 m_pos;
-	Vector3 m_vel;
-	Vector3 m_acc;
+	//Initialising the initial values of vectors to 0
+	Vector3 m_pos = Vector3::Zero;
+	Vector3 m_vel = Vector3::Zero;
+	Vector3 m_acc = Vector3::Zero;
 	float m_pitch, m_yaw, m_roll;
 	Vector3 m_scale;
 
@@ -55,8 +64,8 @@ protected:
 	Matrix m_rotMat;
 	Matrix m_fudge;
 
-	float m_drag;
-
+	//Initialising drag force
+	float m_drag = 0;
 };
 
 #endif

@@ -209,7 +209,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;;dxguid.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies);DirectXTK.lib;DXUT.lib;DXUTOpt.lib;usp10.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies);DirectXTK.lib;DXUT.lib;DXUTOpt.lib;usp10.lib;dinput8.lib</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

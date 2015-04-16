@@ -3,6 +3,7 @@
   <ItemGroup>
     <MeshContentTask Include="table.FBX" />
     <MeshContentTask Include="treasure_chest.FBX" />
+    <MeshContentTask Include="PredatorModel.fbx" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="grass.jpg" />
@@ -18,8 +19,5 @@
   <ItemGroup>
     <None Include="shader.fx" />
     <None Include="Golf ball.FBX" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Starfield.JPG" />
   </ItemGroup>
 </Project>

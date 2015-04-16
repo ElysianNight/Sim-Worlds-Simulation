@@ -8,13 +8,14 @@
 class VBCube : public VBGO
 {
 public:
-	VBCube(){};
+	VBCube(){ m_alive = false; };
 	virtual ~VBCube(){};
 
 	//initialise the Veretx and Index buffers for the cube
 	void init(int _size, ID3D11Device* _GD);
 
 	virtual void Tick(GameData* _GD);
+	virtual void Draw(DrawData* _DD);
 
 protected:
 	//this is to allow custom versions of this which create the basic cube and then distort it

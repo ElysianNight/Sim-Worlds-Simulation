@@ -1,4 +1,6 @@
 #include "VBCube.h"
+#include "gamedata.h"
+#include "gameobject.h"
 
 void VBCube::init(int _size, ID3D11Device* GD)
 {
@@ -147,17 +149,45 @@ void VBCube::init(int _size, ID3D11Device* GD)
 
 void VBCube::Tick(GameData* _GD)
 {
-	//prey movement code
-	float size = 1000.0f;
+	if (!m_alive) return;
+
+	//Prey movement code
+	float size = 250.0f;
 	float Xpush = size *((float)rand() / (float)RAND_MAX - 0.5f);
 	float Zpush = size *((float)rand() / (float)RAND_MAX - 0.5f);
 	m_acc += Vector3(Xpush, 0.0f, Zpush);
-	m_acc -= m_vel * 1.5f; //simply drag
+	m_acc -= m_vel * 2.0f; //simply drag
 
+	/*
 	if (m_pos.Length() > 400.0f)
 	{
-		m_acc -= 25.0f * m_pos;
+		m_acc -= 200.0f * _GD->avePos;
 	}	
+	*/
+
+	Vector3 dPos = m_pos - _GD->avePos;
+
+	float Length = dPos.Length();
+	//normalise that vector
+	dPos.Normalize();
+
+	//if (Length < 400.0f)
+	{
+		//apply acc along that vector scaled by how much I want to be pulled over to that guy
+		//m_acc += 200.0f * dPos;
+	}
+	//else 
+	if (Length > 150.0f)
+	{
+		//apply acc along that vector scaled by how much I want to be pulled over to that guy
+		m_acc -= 200.0f * dPos;
+	}
 
 	GameObject::Tick(_GD);
+}
+
+void VBCube::Draw(DrawData* _DD)
+{
+	if (!m_alive) return;
+	VBGO::Draw(_DD);
 }

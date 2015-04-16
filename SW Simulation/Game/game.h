@@ -46,6 +46,7 @@ protected:
 	Light* m_Light; //base light
 
 	list<GameObject *> m_GameObjects; //data structure storing all GameOBjects of this Game
+	list<GameObject *> m_GameObjects_boids;
 	list<GameObject2D *> m_GameObject2Ds;//ditto 2D objects
 
 	//required for the CMO model rendering system

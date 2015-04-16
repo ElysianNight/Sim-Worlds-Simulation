@@ -61,9 +61,11 @@ Game::Game(ID3D11Device* _pd3dDevice, HINSTANCE _hInstance) :m_playTime(0), m_my
 /*	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_myEF,Vector3(100.0f,0.0f,100.0f), 0.0f, 0.0f, 0.0f, 0.25f * Vector3::One);
 	m_GameObjects.push_back(terrain); */
 
-	Turret_Base* base = new Turret_Base("treasure_chest.cmo", _pd3dDevice, m_myEF);
+	//Create new turret base game object... 
+	//...in this case, an eagle
+	Turret_Base* base = new Turret_Base("PredatorModel.cmo", _pd3dDevice, m_myEF);
 	m_GameObjects.push_back(base);
-	base->SetPos(Vector3(100.0f, 0.0f, -100.0f));
+	base->SetPos(Vector3(100.0f, -10.0f, -100.0f));
 
 	m_TPSCam = new TPSCamera(0.25f * XM_PI, 640.0f / 480.0f, 1.0f, 10000.0f, base, Vector3::UnitY, Vector3(-200.0f, 100.0f, 0.0f));
 	m_GameObjects.push_back(m_TPSCam);
@@ -80,16 +82,28 @@ Game::Game(ID3D11Device* _pd3dDevice, HINSTANCE _hInstance) :m_playTime(0), m_my
 	Box->SetPitch( XM_PIDIV4 );
 	Box->SetScale( 20.0f ); */
 
+	for (int i = 0; i < 201; i++)
+	{
+			VBCube* cube = new VBCube();
+			cube->m_alive = true;
+			cube->init(11, _pd3dDevice);
+			cube->SetPos(Vector3(rand() % 500 - 250, 0.0f, rand() % 500 - 250));
+			cube->SetYaw(2.0f*3.141f*(float)rand() / (float)RAND_MAX);
+			cube->SetScale(2.0f);
+			m_GameObjects_boids.push_back(cube);
+	}
 
-	for (int i = 0; i < 199; i++)
+	for (int i = 0; i < 301; i++)
 	{
 		VBCube* cube = new VBCube();
+		cube->m_alive = false;
 		cube->init(11, _pd3dDevice);
 		cube->SetPos(Vector3(rand() % 500 - 250, 0.0f, rand() % 500 - 250));
 		cube->SetYaw(2.0f*3.141f*(float)rand() / (float)RAND_MAX);
 		cube->SetScale(2.0f);
-		m_GameObjects.push_back(cube);
+		m_GameObjects_boids.push_back(cube);
 	}
+
 /*	SpikedVB* spikes = new SpikedVB();
 	spikes->init(11, _pd3dDevice);
 	spikes->SetPos(Vector3(0.0f, 0.0f, 100.0f));
@@ -159,6 +173,10 @@ Game::~Game()
 	{
 		delete (*it);
 	}
+	for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
+	{
+		delete (*it);
+	}
 
 	m_GameObjects.clear();
 	//and the 2D ones
@@ -173,7 +191,6 @@ Game::~Game()
 	delete m_myEF;
 	delete m_GD;
 	delete m_DD;
-
 }
 
 bool Game::update()
@@ -204,17 +221,87 @@ bool Game::update()
 		}
 	}
 
+	//Increasing boid speed...
+	if ((m_keyboardState[DIK_I] & 0x80) && !(m_prevKeyboardState[DIK_I] & 0x80))
+	{
+		GameObject::ms_speed += 0.1f;
+	}
+
+	//Decreasing boid speed...
+	if((m_keyboardState[DIK_O] & 0x80) && !(m_prevKeyboardState[DIK_O] & 0x80))
+	{ 
+		GameObject::ms_speed -= 0.1f;
+	}
+
+	//Increasing predator speed...
+	if((m_keyboardState[DIK_J] & 0x80) && !(m_prevKeyboardState[DIK_J] & 0x80))
+	{
+		GameObject::mp_speed += 10.0f;
+	}
+
+	//Decreasing predator speed...
+	if ((m_keyboardState[DIK_K] & 0x80) && !(m_prevKeyboardState[DIK_K] & 0x80))
+	{
+		GameObject::mp_speed -= 10.0f;
+	}
+
+	//Adding boids...
+	if ((m_keyboardState[DIK_N] & 0x80) && !(m_prevKeyboardState[DIK_N] & 0x80))
+	{
+		//Add 10 boids;
+		int newBoids = 0;
+		for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
+		{
+			if (!(*it)->m_alive)
+			{
+				(*it)->m_alive = 1;
+				newBoids++;
+			}
+			if (newBoids == 10)
+			{
+				break;
+			}
+		}
+	}
+
+	//Removing 10 boids...
+	if ((m_keyboardState[DIK_M] & 0x80) && !(m_prevKeyboardState[DIK_M] & 0x80))
+	{
+		int newBoids = 0;
+		for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
+		{
+			if ((*it)->m_alive)
+			{
+				(*it)->m_alive = 0;
+				newBoids++;
+			}
+			if (newBoids == 10)
+			{
+				break;
+			}
+		}
+	}
 
 	//calculate frame time-step dt for passing down to game objects
 	DWORD currentTime = GetTickCount();
 	m_GD->dt = min((float)(currentTime - m_playTime) / 1000.0f, 0.1f);
 	m_playTime = currentTime;
 
+	m_GD->avePos = Vector3::Zero;
+	int countAlive = 0;
 
 	//update all objects
-	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
 	{
-		for (list<GameObject *>::iterator it2 = it; it2 != m_GameObjects.end(); it2++)
+		if ((*it)->m_alive)
+		{
+			//Count how many boids are alive
+			countAlive++;
+			//Add up all of their positions
+			m_GD->avePos += (*it)->GetPos();
+		}
+
+		for (list<GameObject *>::iterator it2 = it; it2 != m_GameObjects_boids.end(); it2++)
 		{
 			if (it != it2  && (*it)->m_type == OT_BOID && (*it2)->m_type==OT_BOID)
 			{
@@ -224,7 +311,15 @@ bool Game::update()
 			}
 		}
 	}
+
+	//Divide average position by the number of alive boids
+	m_GD->avePos /= countAlive;
+
 	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		(*it)->Tick(m_GD);//apply forces
+	}
+	for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
 	{
 		(*it)->Tick(m_GD);//apply forces
 	}
@@ -257,7 +352,10 @@ void Game::render(ID3D11DeviceContext* _pd3dImmediateContext)
 	{
 		(*it)->Draw(m_DD);
 	}
-
+	for (list<GameObject *>::iterator it = m_GameObjects_boids.begin(); it != m_GameObjects_boids.end(); it++)
+	{
+		(*it)->Draw(m_DD);
+	}
 	
 	/*
 	This was the original code for printing the test message:...
@@ -283,9 +381,15 @@ void Game::render(ID3D11DeviceContext* _pd3dImmediateContext)
 	
 	//Setting up a vector containing the HUD elements
 	vector<string>attempts;
-	attempts.push_back("Press I to decrease boid speed or O to increase boid speed");
-	attempts.push_back("Press J to decrease player speed or K to increase player speed");
+	attempts.push_back("Press I to increase boid speed or O to decrease boid speed");
+	attempts.push_back("Press J to increase predator speed or K to decrease predator speed");
 	attempts.push_back("Press N to add 10 boids or M to remove 10 boids");
+	
+	//Display the current values of the prey speed, predator speed and number of boids
+	/*
+	I couldn't work out how to do the string stream stuff...
+	...to display the current values of the different user-altered parameters.
+	*/
 	
 	// Draw sprite batch stuff
 	m_DD2D->m_Sprites->Begin();

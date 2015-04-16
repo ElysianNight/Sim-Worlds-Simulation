@@ -2,6 +2,7 @@
 #ifndef OBJECT_TYPE_H
 #define OBJECT_TYPE_H
 
+//Different object types for each object
 enum ObjectType
 {
 	OT_NULL = 0,

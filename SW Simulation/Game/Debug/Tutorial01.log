@@ -1,4 +1,4 @@
-﻿Build started 10/04/2015 18:07:34.
+﻿Build started 13/04/2015 14:44:02.
      1>Project "C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Game\Tutorial01.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\Inc /I..\DXUT\Core /I..\DXUT\Optional /ZI /nologo /W4 /WX- /Od /Oi /Oy- /D WIN32 /D _DEBUG /D DEBUG /D PROFILE /D _WINDOWS /D _WIN32_WINNT=0x0600 /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /openmp- /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt  game.cpp
@@ -15,10 +15,11 @@
      1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\helper.h(16): warning C4996: 'mbstowcs': This function or variable may be unsafe. Consider using mbstowcs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdlib.h(528) : see declaration of 'mbstowcs'
      1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(22): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(88): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(299): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(305): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(307): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(90): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(101): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(365): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(371): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\sim worlds simulation\sim-worlds-simulation\sw simulation\game\game.cpp(373): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Debug\Game.exe" /INCREMENTAL /NOLOGO d3d11.lib d3dcompiler.lib dxguid.lib winmm.lib comctl32.lib DirectXTK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib DXUT.lib DXUTOpt.lib usp10.lib dinput8.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Debug\Game.pdb" /SUBSYSTEM:WINDOWS /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Sim Worlds Simulation\Sim-Worlds-Simulation\SW Simulation\Debug\Game.lib" /MACHINE:X86 /SAFESEH  Debug\Tutorial01.res
          Debug\camera.obj
@@ -40,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.49
+Time Elapsed 00:00:04.89

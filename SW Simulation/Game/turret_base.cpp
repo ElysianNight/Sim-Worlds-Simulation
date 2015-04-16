@@ -6,7 +6,7 @@
 Turret_Base::Turret_Base(string _fileName, ID3D11Device* _pd3dDevice, MyEffectFactory* _EF) :CMOGO(_fileName, _pd3dDevice, _EF)
 {
 	m_pos.y = 10.0f;
-	m_scale = 2.0f * Vector3::One;
+	m_scale = 3.0f * Vector3::One;
 
 	m_fudge = Matrix::CreateRotationZ(0.5f * XM_PI);
 
@@ -33,7 +33,7 @@ void Turret_Base::Tick(GameData* _GD)
 			{
 				m_yaw -= rotSpeed;
 			}
-			float speed = _GD->dt * 100.0f;
+			float speed = _GD->dt * mp_speed;
 
 			Matrix rotMat = Matrix::CreateRotationY(m_yaw);
 			Vector3 forward = Vector3::UnitX;
@@ -43,10 +43,15 @@ void Turret_Base::Tick(GameData* _GD)
 				m_pos += speed * Vector3::Transform(forward, rotMat);
 			}
 
+			//Removed the functionality for the player (predator) to move backwards...
+			//...as it breaks the reality of the simulation
+			
+			/*
 			if (_GD->keyboard[DIK_S] & 0x80)
 			{
 				m_pos -= speed * Vector3::Transform(forward, rotMat);
 			}
+			*/
 			
 			break;
 		}
@@ -72,10 +77,15 @@ void Turret_Base::Tick(GameData* _GD)
 				m_pos += speed * Vector3::Transform(forward, rotMat);
 			}
 
+			//Removed the functionality for the player (predator) to move backwards...
+			//...as it breaks the reality of the simulation
+
+			/*
 			if (_GD->keyboard[DIK_S] & 0x80)
 			{
 				m_pos -= speed * Vector3::Transform(forward, rotMat);
 			}
+			*/
 
 			break;
 		}

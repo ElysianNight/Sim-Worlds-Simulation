@@ -68,6 +68,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="Golf ball.FBX" />
+    <MeshContentTask Include="PredatorModel.fbx" />
     <MeshContentTask Include="table.FBX" />
     <MeshContentTask Include="treasure_chest.FBX" />
   </ItemGroup>
@@ -89,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Starfield.JPG" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
